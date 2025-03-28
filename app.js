@@ -6,13 +6,10 @@ var path = require('path');
 var crypto = require('crypto')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// var db = require('db');
+var session = require('express-session');
+var db = require('./db');
 
-// passport.use(new localStrategy(function verify(username,passport , cb ){
-// db.get('select * from users where username = ? ' , [username] , )
-// }
-
-// ));
+const MySQLStore = require('express-mysql-session')(session);
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -22,6 +19,13 @@ var app = express();
 // view engine setup
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'mySecretKey',
+  resave: false ,
+  saveUninitialized: false,
+  store: new MySQLStore({} , db)
+}));
+app.use(passport.authenticate('session'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -30,11 +34,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use((req,res,next)=>{
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.user = req.user || null;
+  next();
+})
+
 
 
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
+app.use('/', loginRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
