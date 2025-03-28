@@ -1,8 +1,18 @@
 var createError = require('http-errors');
 var express = require('express');
+var localStrategy = require('passport-local');
+var passport = require('passport');
 var path = require('path');
+var crypto = require('crypto')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// var db = require('db');
+
+// passport.use(new localStrategy(function verify(username,passport , cb ){
+// db.get('select * from users where username = ? ' , [username] , )
+// }
+
+// ));
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');

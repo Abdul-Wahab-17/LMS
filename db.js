@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 
-// Create a MySQL connection
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -16,6 +15,8 @@ connection.connect((err) => {
     }
     console.log('✅ Connected to MySQL as ID', connection.threadId);
 });
+
+
 
 // Export connection to use it in routes
 module.exports = connection;

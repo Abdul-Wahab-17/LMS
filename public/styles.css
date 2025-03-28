@@ -1,52 +1,227 @@
-/* Global Styling */
+/* Discord-like CSS Template */
+
+/* Root Variables */
+:root {
+  --background: #36393f;
+  --foreground: #2f3136;
+  --primary: #5865f2;
+  --text: #dcddde;
+  --muted-text: #72767d;
+  --border: #202225;
+  --hover: #40444b;
+}
+
+/* Base Styles */
 body {
+  background-color: var(--background);
+  color: var(--text);
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
-  padding: 0;
-}
-
-/* Navbar */
-.navbar {
-  background-color: #007bff !important;
-}
-
-.navbar a {
-  color: white !important;
-  font-weight: bold;
-}
-
-/* Form Styling */
-form {
-  background: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 50px auto;
 }
 
-form input, form button {
-  margin-top: 10px;
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text);
 }
 
 /* Buttons */
-.btn-primary {
-  background-color: #007bff;
+.button {
+  background-color: var(--primary);
+  color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.button:hover {
+  background-color: #4752c4;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-/* Footer */
-footer {
-  text-align: center;
+/* Inputs & Forms */
+input, textarea {
+  background: var(--foreground);
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 10px;
-  background: #007bff;
-  color: white;
-  margin-top: 20px;
+  border-radius: 5px;
+  outline: none;
+}
+input:focus, textarea:focus {
+  border-color: var(--primary);
+}
+
+/* Cards */
+.card {
+  background: var(--foreground);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  margin-bottom: 15px;
+}
+
+/* Navigation Sidebar */
+.sidebar {
+  width: 250px;
+  background: var(--foreground);
+  padding: 15px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid var(--border);
+}
+.sidebar a {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+.sidebar a:hover {
+  background: var(--hover);
+}
+
+/* Chat Bubble */
+.chat-bubble {
+  background: var(--foreground);
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 60%;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Flex Layout */
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted-text);
+  border-radius: 10px;
+}
+
+/* Utility Classes */
+.text-muted {
+  color: var(--muted-text);
+}
+.rounded {
+  border-radius: 50%;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+
+@media (max-width: 1300px) {}
+
+@media (max-width: 1120px) {}
+
+@media (max-width: 992px) {
+    .hero_area {
+        height: auto;
+    }
+
+    .header_section .main_nav {
+        flex: 1;
+    }
+
+    #navbarSupportedContent {
+        margin-top: 15px;
+    }
+
+    .slider_section {
+        padding-top: 45px;
+    }
+
+    .feature_section .feature_container .box {
+        padding: 30px 15px;
+    }
+
+    .feature_section .feature_container .box .img-box {
+        width: 75px;
+    }
+
+
+    .feature_section {
+        transform: none;
+        padding: 90px 0;
+    }
+
+
+}
+
+@media (max-width: 767px) {
+    .layout_padding {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .layout_padding-top {
+        padding-top: 90px;
+    }
+
+    .layout_padding-bottom {
+        padding-bottom: 90px;
+    }
+
+    .slider_section .detail-box {
+        padding-bottom: 45px;
+    }
+
+    .feature_section .feature_container {
+        flex-direction: column;
+    }
+
+    .feature_section .feature_container .box {
+        padding: 30px 15px;
+    }
+
+    .feature_section .feature_container .box:not(:nth-last-child(1)) {
+        margin-bottom: 15px;
+    }
+
+    .about_section .detail-box {
+        margin-bottom: 45px;
+    }
+
+
+    .professional_section .img-box {
+        display: none;
+    }
+
+    .contact_section form {
+        margin-bottom: 45px;
+    }
+
+    .info_section .info_items::before {
+        width: 1px;
+        height: 90%;
+        top: 25px;
+    }
+
+}
+
+@media (max-width: 576px) {}
+
+@media (max-width: 480px) {}
+
+@media (max-width: 400px) {}
+
+@media (max-width: 360px) {}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1170px;
+    }
+
 }
