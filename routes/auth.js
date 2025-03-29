@@ -23,20 +23,13 @@ passport.use(new localStrategy(function verify(username, password, cb) {
             return cb(new Error("Database missing required fields"));
         }
   
-        // Convert BLOB to Hex string
-       const storedHash = row.password;  // Ensure it's a Buffer
-        
-        console.log('hash in db: '+ storedHash);
-        console.log("Retrieved Salt (Hex from DB):", storedSalt);
-        const saltBuffer = Buffer.from(storedSalt, 'hex');
-        console.log("Converted to Binary Buffer:", saltBuffer);
-        console.log("Converted Back to Hex:", saltBuffer.toString('hex'));  // Should match original storedSalt
-        
+       const storedHash = row.password;  
+       const storedSalt = row.salt;
+       
         // Hash input password using the stored salt
-        crypto.pbkdf2(password, Buffer.from(storedSalt, 'hex'), 310000, 32, 'sha256', function(err, hashedPassword) {
+        crypto.pbkdf2(password, storedSalt, 310000, 32, 'sha256', function(err, hashedPassword) {
             if (err) return cb(err);
   
-            console.log(hashedPassword);
             if (!crypto.timingSafeEqual(storedHash  , hashedPassword)) {
                 console.error("❌ Hash mismatch: Incorrect password");
                 return cb(null, false, { message: 'Incorrect username or password.' });
@@ -107,10 +100,8 @@ router.post('/register' , (req , res , next)=>{
         var salt = crypto.randomBytes(16);
         crypto.pbkdf2(password , salt,310000 , 32 , 'sha256' , (err , derivedKey)=>{
             if (err) throw err;
-            db.query( query , [username , derivedKey , salt.toString('hex')] , (err)=>{
-                console.log('Adding to db');
-                console.log('salt: ' + salt);
-                console.log('password: '+derivedKey);
+            db.query(query, [username, derivedKey, salt], (err) => {
+
                 if (err) {throw err};
                 var user = { id: this.id , username: username}
                 req.login(user, function(err) {
