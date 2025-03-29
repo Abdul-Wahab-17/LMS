@@ -113,4 +113,11 @@ router.post('/register' , (req , res , next)=>{
     })
 })
 
-module.exports = router;
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next(); // User is authenticated, proceed
+    }
+    res.status(401).send(  "Unauthorized: Please log in" );
+}
+
+module.exports = {router , ensureAuthenticated};

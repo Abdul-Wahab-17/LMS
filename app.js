@@ -1,9 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
-var localStrategy = require('passport-local');
 var passport = require('passport');
 var path = require('path');
-var crypto = require('crypto')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
@@ -12,7 +10,7 @@ var db = require('./db');
 const MySQLStore = require('express-mysql-session')(session);
 
 var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/auth');
+var { router: authRouter } = require('./routes/auth');
 var userRouter = require('./routes/user');
 
 var app = express();
@@ -45,7 +43,7 @@ app.use((req,res,next)=>{
 
 
 app.use('/', indexRouter);
-app.use('/auth', loginRouter);
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
 // Catch 404 and forward to error handler
